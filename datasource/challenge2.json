@@ -1,0 +1,7 @@
+{
+  "id": "challenge2",
+  "title": "Resilient Customer Portal",
+  "thumbnail": "./assets/challenge2.png",
+  "summary": "Create a resilient portal with observability and strong governance.",
+  "solutionFile": "./solutions/challenge2-solution.md"
+}
