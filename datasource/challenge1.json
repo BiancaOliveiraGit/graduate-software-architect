@@ -1,0 +1,7 @@
+{
+  "id": "challenge1",
+  "title": "Cloud-Native Integration Hub",
+  "thumbnail": "./assets/challenge1.png",
+  "summary": "Design a secure integration layer for distributed services and APIs.",
+  "solutionFile": "./solutions/challenge1-solution.md"
+}

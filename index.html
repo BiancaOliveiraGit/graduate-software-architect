@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Design Challenge Dashboard</title>
+    <link rel="stylesheet" href="./styles/styles.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <div class="hero__content">
+        <p class="eyebrow">Azure Static Web App</p>
+        <h1>Design Challenge Dashboard</h1>
+        <p>
+          Explore architecture solutions and design decisions for modern cloud
+          scenarios.
+        </p>
+      </div>
+    </header>
+
+    <main>
+      <section class="section">
+        <div class="section__header">
+          <h2>Featured challenges</h2>
+          <p>Each card links to a solution design for the selected scenario.</p>
+        </div>
+        <div id="challenge-list" class="card-grid" aria-live="polite"></div>
+      </section>
+    </main>
+
+    <script src="./scripts/app.js"></script>
+  </body>
+</html>
