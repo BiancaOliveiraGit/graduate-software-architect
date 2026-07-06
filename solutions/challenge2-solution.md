@@ -1,5 +1,8 @@
 # Resilient Customer Portal
 
+## Scenario
+- Summarize the business scenario and context for the solution.
+
 ## Business Objective
 
 - Deliver a scalable self-service experience for customers.

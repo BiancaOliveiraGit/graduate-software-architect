@@ -1,5 +1,8 @@
 # Solution Design – One Page Template
 
+## Scenario
+- Summarize the business scenario and context for the solution.
+
 ## Business Objective
 
 - Summarize the core business problem or opportunity.
