@@ -35,6 +35,10 @@
 - Azure SQL Database for transactional data.
 - Azure Monitor and Application Insights for observability.
 
+### Architecture Diagram
+![Architecture Diagram](./architecture-solution/sd-architecture-challenge-number.svg)
+
+
 ## Security Considerations
 
 - Conditional access and MFA.

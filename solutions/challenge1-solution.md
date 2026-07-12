@@ -18,7 +18,7 @@ A mid-sized insurance company wants to modernize its claims processing to be upl
 - Existing API email system is in place for notifications.
 - Managing claims approval to remain a manual process for now, with potential for automation in the future.
 - Existing Azure SQL Database Server.
-- Existing Authentication system for customers and internal teams.
+- Existing Authentication system to Frontend for customers and internal teams.
 
 ## Constraints & Budget
 
@@ -60,27 +60,36 @@ A mid-sized insurance company wants to modernize its claims processing to be upl
 - Azure Key Vault for secrets management.
 - Azure Monitor and Application Insights for observability and logging. 
 - Spoke Network architecture with private endpoints for secure communication between services.
-- Managed Identity for secure access to Azure resources.
+- Azure Managed Identities for secure access to Azure resources.
 
-### Your tasks
-- what azure services would you use to implement this solution?
-- how users authenticate and authorize to the solution?
-- where files stored
-- where application data lives
-- how is security handled
-- how monitoring and logging is implemented
-- how backup and disaster recovery is implemented
+![Architecture Diagram](./architecture-solution/sd-architecture-challenge1.svg)
+
 
 ## Security Considerations
 
-- Managed identities.
+- Azure Managed Identities between resources.
 - Encrypted transport and storage.
 - Private networking where possible.
+
+## Observability
+
+- Azure Monitor and Application Insights for logging and monitoring.
+- Attach 3rd party observability system to injest logs and metrics for advanced analytics.
+- Dashboards in 3rd party observability system for claims processing team to monitor system health and performance.
+
+## Disaster Recovery
+
+- Azure Blob Storage backup policies for disaster recovery.
+- Azure SQL Database backup and restore capabilities.
+- Geo-replication for high availability.
+- Geo-replication for Service Bus Namespace for high availability.
 
 ## Risks
 
 - Third-party Email API downtime.
 - Message backlog during bursts.
+- Additional cost due to redundancy and scaling.
+- Service Bus in DR will have messages in flight loss when primary region fails over to DR region.
 
 ## Decision Matrix
 

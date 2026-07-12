@@ -38,9 +38,9 @@
 - List Azure services used (App Service, API Management, Service Bus, Functions, Storage, SQL, Cosmos DB, etc.).
 - Describe how components interact.
 
-### Architecture Diagram (Placeholder)
+### Architecture Diagram
+![Architecture Diagram](./architecture-solution/sd-architecture-challenge-number.svg)
 
-- [Insert architecture diagram here]
 
 ## Security
 
