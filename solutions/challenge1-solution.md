@@ -95,10 +95,19 @@ A mid-sized insurance company wants to modernize its claims processing to be upl
 
 | Option | Pros | Cons | Estimated Cost | Decision |
 | --- | --- | --- | --- | --- |
-| Managed API Gateway | Fast deployment | Less custom control | Medium | Recommended |
-| Custom Integration Runtime | Full control | Higher operational overhead | High | Not preferred |
+| Managed API Gateway | Full API Management | Required per region for high availability | High | Not preferred |
+| Front Door | Global not regional. Built in load balancer & WAF | Higher operational overhead. Security exposure to Internet | Low | Recommended |
+| Flexible Serverless Functions | Scales automatically | Cold start latency | Low | Recommended |
+| App Service Plan | Predictable cost | Higher cost | Medium | Not preferred |
+| Blob Storage | Redundancy policies available | Limited query capabilities | Low | Recommended |
+| Service Bus with Topics | Message durability & integrationdecoupling | Higher operational overhead | Medium | Recommended |
+
+
 
 ## Stakeholder Questions
 
 - Which systems must be integrated first?
 - What SLAs are required for each workflow?
+
+## Architecture Review Board
+[Architecture Review Board](./review-board/review-challenge1.md)
