@@ -44,7 +44,7 @@ A mid-sized insurance company wants to modernize its claims processing to be upl
 - Must operate within Australian only.
 - Data retained for seven years.
 - Personally Identifiable Information (PII) must be encrypted.
-- Must support growth from 5000 to 25000 customers over the next 5 years.
+- Must support growth from 5000 to 20000 customers over the next 5 years.
 - Disaster recovery plan with RPO of 15 minutes and RTO of 4 hours.
 
 ## Azure Architecture
@@ -82,7 +82,7 @@ A mid-sized insurance company wants to modernize its claims processing to be upl
 - Azure Blob Storage backup policies for disaster recovery.
 - Azure SQL Database backup and restore capabilities.
 - Geo-replication for high availability.
-- Geo-replication for Service Bus Namespace for high availability.
+- Geo-replication for Service Bus Namespace for high availability, fast failover.
 
 ## Risks
 
@@ -102,12 +102,45 @@ A mid-sized insurance company wants to modernize its claims processing to be upl
 | Blob Storage | Redundancy policies available | Limited query capabilities | Low | Recommended |
 | Service Bus with Topics | Message durability & integrationdecoupling | Higher operational overhead | Medium | Recommended |
 
+## Availability and Disaster Recovery
+99.95% required availability equates to 4.38 hours of downtime per year. The proposed architecture is designed to meet this requirement through the use of Azure Front Door, Azure Functions deployed in multiple regions, and Service Bus with geo-replication.
 
+| Component | Availability | Redundancy | Recovery Strategy | Single Point of Failure |
+| --- | --- | --- | --- | --- |
+| Azure Front Door | 99.99% | Global Load Balancing | Automatic failover to secondary region | No |
+| Azure Functions | 99.95% | Deployed in two regions | Automatic failover | No |
+| Service Bus | 99.95% | Geo-replication | Automatic failover | No |
+| Azure Blob Storage | 99.99% | Geo-redundant storage | Automatic failover | No |
+| Azure SQL Database | 99.99% | Geo-replication | Automatic failover | No |
+
+The combined availability of the architecture is approximately 99.87%.
+However, by deploying Azure Functions in an active-active patternand Service Bus in an active-passive with fast failover multi‑region configuration, the system no longer relies on a single serial dependency chain.
+This parallel redundancy significantly increases effective availability and enables the solution to meet or exceed the 99.95% availability requirement
+
+## Disaster Recovery Plan
+
+RPO of 15 minutes and RTO of 4 hours
+Configuration of Azure Blob Storage and Azure SQL Database for geo-replication ensures that data is replicated to a secondary region. In the event of a primary region failure, the system can failover to the secondary region, minimizing downtime and data loss.
+
+## Load Metrics
+#### Assumptions
+- 5000 customers in the first year, growing to 20000 over 5 years
+- Requests per user per day: 20
+- Peak factor: 3× (traffic is not flat)
+- Database data per user: 50 KB/day (rows, logs, metadata)
+- Blob data per user: 200 KB/day (documents, small files, images)
+
+| Metric	| 5,000 users | 20,000 users |
+| --- | --- | --- |
+| Avg RPS	| ~1–2	| ~4–5 |
+| Peak RPS	| ~3–5	| ~12–15 |
+| DB growth/year	| ~90 GB	| ~360–370 GB |
+| Blob growth/year	| ~350–400 GB	| ~1.4–1.5 TB |
 
 ## Stakeholder Questions
 
 - Which systems must be integrated first?
-- What SLAs are required for each workflow?
+- What is the budget for the solution?
 
 ## Architecture Review Board
 [Architecture Review Board](./review-board/review-challenge1.md)
