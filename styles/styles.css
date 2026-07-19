@@ -121,6 +121,41 @@ h3 {
   padding-left: 1.25rem;
 }
 
+.solution-card table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+}
+
+.solution-card th,
+.solution-card td {
+  border: 1px solid var(--border);
+  padding: 0.75rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.solution-card th {
+  background: #f4f7fb;
+  font-weight: 700;
+}
+
+.solution-card img {
+  display: block;
+  max-width: 100%;
+  border-radius: 12px;
+  margin: 1rem 0;
+}
+
+.solution-card a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.solution-card a:hover {
+  text-decoration: underline;
+}
+
 @media (max-width: 640px) {
   .hero {
     padding-top: 2.5rem;

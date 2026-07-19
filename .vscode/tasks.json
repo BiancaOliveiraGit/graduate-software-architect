@@ -18,6 +18,27 @@
         "showReuseMessage": true,
         "clear": false
       }
+    },
+    {
+      "label": "Build",
+      "type": "shell",
+      "command": "echo Build completed for static site",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      }
     }
   ]
 }
