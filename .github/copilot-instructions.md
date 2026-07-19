@@ -156,6 +156,16 @@ Each `solution-design.md` file should include:
 - Add versioning for solution documents.
 - Add authentication using Azure AD.
 
+## 11. Architecture Review Board Prompt
+
+Use the prompt file at [.github/prompts/architecture-review-board.prompt.md](.github/prompts/architecture-review-board.prompt.md) when you want to run an interactive architecture review board session with the AI agent.
+
+The prompt instructs the agent to:
+- ask which challenge is being reviewed,
+- ask the review questions one at a time,
+- challenge the user on functional and non-functional requirements,
+- and summarize the conversation back into the review board file.
+
 ---
 
 This instructions.md file ensures the agent understands the architecture and conventions required to generate and maintain the static web app effectively.
