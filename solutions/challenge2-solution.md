@@ -1,5 +1,8 @@
 # Resilient Customer Portal
 
+## Scenario
+- Summarize the business scenario and context for the solution.
+
 ## Business Objective
 
 - Deliver a scalable self-service experience for customers.
@@ -31,6 +34,10 @@
 - Azure App Service for the web frontend.
 - Azure SQL Database for transactional data.
 - Azure Monitor and Application Insights for observability.
+
+### Architecture Diagram
+![Architecture Diagram](./architecture-solution/sd-architecture-challenge-number.svg)
+
 
 ## Security Considerations
 

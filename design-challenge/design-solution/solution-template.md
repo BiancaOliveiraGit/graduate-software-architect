@@ -1,5 +1,8 @@
 # Solution Design – One Page Template
 
+## Scenario
+- Summarize the business scenario and context for the solution.
+
 ## Business Objective
 
 - Summarize the core business problem or opportunity.
@@ -35,9 +38,9 @@
 - List Azure services used (App Service, API Management, Service Bus, Functions, Storage, SQL, Cosmos DB, etc.).
 - Describe how components interact.
 
-### Architecture Diagram (Placeholder)
+### Architecture Diagram
+![Architecture Diagram](./architecture-solution/sd-architecture-challenge-number.svg)
 
-- [Insert architecture diagram here]
 
 ## Security
 
