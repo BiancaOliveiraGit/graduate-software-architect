@@ -2,7 +2,7 @@
 
 ## Summary
 
-Create the Azure deployment infrastructure for the Claims Solution using **Bicep**. The implementation must follow all project standards, naming conventions, folder structure, and development guidelines defined in the repository's **`instructions.md`** file.
+Create the Azure deployment infrastructure for the Claims Solution using **Bicep**. The implementation must follow all project standards, naming conventions, folder structure, and development guidelines defined in the repository's **`copilot-instructions.md`** file.
 
 ## Background
 
@@ -13,7 +13,7 @@ Bicep will be used to define reusable, modular infrastructure that can be deploy
 ## Objectives
 
 * Create the initial Bicep infrastructure for the solution.
-* Follow all architectural and coding standards documented in `instructions.md`.
+* Follow all architectural and coding standards documented in `copilot-instructions.md`.
 * Ensure the infrastructure is modular, reusable, and environment-specific.
 * Support automated deployments through GitHub Actions or the existing deployment pipeline.
 
@@ -22,22 +22,22 @@ Bicep will be used to define reusable, modular infrastructure that can be deploy
 Implement the foundational infrastructure, including (where applicable):
 
 * Resource Group
-* App Service Plan
-* Azure App Service
-* Azure Storage Account
+* Azure Storage Account with Blob Storage configured for Static Website Hosting
 * Azure Key Vault
 * Application Insights
 * Log Analytics Workspace
 * Managed Identity
 * Networking components (if required)
 * Configuration and parameter files for each environment
+* Include deployment scripts and instructions for local and pipeline deployments.
+* Include upload of all required files of the design-challenge website to Azure Storage Blob and enable static website hosting.
 
 The solution should be structured using reusable Bicep modules where appropriate.
 
 ## Acceptance Criteria
 
 * [ ] Infrastructure is implemented using Bicep.
-* [ ] Repository structure follows `instructions.md`.
+* [ ] Repository structure follows `copilot-instructions.md`.
 * [ ] Naming conventions comply with project standards.
 * [ ] Parameters are separated from resource definitions.
 * [ ] Environment-specific parameter files are provided.

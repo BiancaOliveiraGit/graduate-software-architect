@@ -24,7 +24,7 @@
       "type": "string",
       "minLength": 2,
       "metadata": {
-        "description": "Short name for the solution workload. Example: claims"
+        "description": "Short name for the solution workload. Example: graduate"
       }
     },
     "location": {
@@ -37,7 +37,7 @@
     "tags": {
       "type": "object",
       "defaultValue": {
-        "workload": "claims-solution",
+        "workload": "graduate-solution",
         "managedBy": "bicep"
       },
       "metadata": {
@@ -50,8 +50,6 @@
     "deploymentSuffix": "[toLower(uniqueString(subscription().subscriptionId, parameters('applicationName'), parameters('environmentName')))]",
     "resourceGroupName": "[format('rg-{0}-{1}-{2}', variables('normalizedAppName'), parameters('environmentName'), variables('deploymentSuffix'))]",
     "storageAccountName": "[take(format('st{0}{1}{2}', variables('normalizedAppName'), parameters('environmentName'), variables('deploymentSuffix')), 24)]",
-    "appServicePlanName": "[take(format('asp-{0}-{1}-{2}', variables('normalizedAppName'), parameters('environmentName'), variables('deploymentSuffix')), 40)]",
-    "webAppName": "[take(format('app-{0}-{1}-{2}', variables('normalizedAppName'), parameters('environmentName'), variables('deploymentSuffix')), 60)]",
     "appInsightsName": "[take(format('appi-{0}-{1}-{2}', variables('normalizedAppName'), parameters('environmentName'), variables('deploymentSuffix')), 260)]",
     "workspaceName": "[take(format('log-{0}-{1}-{2}', variables('normalizedAppName'), parameters('environmentName'), variables('deploymentSuffix')), 63)]",
     "keyVaultName": "[take(format('kv-{0}-{1}-{2}', variables('normalizedAppName'), parameters('environmentName'), variables('deploymentSuffix')), 24)]"
@@ -403,159 +401,6 @@
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2025-04-01",
-      "name": "appServiceDeployment",
-      "resourceGroup": "[variables('resourceGroupName')]",
-      "properties": {
-        "expressionEvaluationOptions": {
-          "scope": "inner"
-        },
-        "mode": "Incremental",
-        "parameters": {
-          "location": {
-            "value": "[parameters('location')]"
-          },
-          "appServicePlanName": {
-            "value": "[variables('appServicePlanName')]"
-          },
-          "webAppName": {
-            "value": "[variables('webAppName')]"
-          },
-          "appInsightsConnectionString": {
-            "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('resourceGroupName')), 'Microsoft.Resources/deployments', 'monitoringDeployment'), '2025-04-01').outputs.applicationInsightsConnectionString.value]"
-          },
-          "appInsightsInstrumentationKey": {
-            "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('resourceGroupName')), 'Microsoft.Resources/deployments', 'monitoringDeployment'), '2025-04-01').outputs.applicationInsightsInstrumentationKey.value]"
-          },
-          "tags": {
-            "value": "[union(parameters('tags'), createObject('environment', parameters('environmentName')))]"
-          }
-        },
-        "template": {
-          "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
-          "contentVersion": "1.0.0.0",
-          "metadata": {
-            "_generator": {
-              "name": "bicep",
-              "version": "0.45.15.27210",
-              "templateHash": "16710810985331852138"
-            }
-          },
-          "parameters": {
-            "appServicePlanName": {
-              "type": "string",
-              "metadata": {
-                "description": "Name of the App Service plan."
-              }
-            },
-            "webAppName": {
-              "type": "string",
-              "metadata": {
-                "description": "Name of the web app."
-              }
-            },
-            "location": {
-              "type": "string",
-              "metadata": {
-                "description": "Azure region for the web app resources."
-              }
-            },
-            "appInsightsConnectionString": {
-              "type": "string",
-              "metadata": {
-                "description": "Application Insights connection string for the web app."
-              }
-            },
-            "appInsightsInstrumentationKey": {
-              "type": "string",
-              "metadata": {
-                "description": "Application Insights instrumentation key for the web app."
-              }
-            },
-            "tags": {
-              "type": "object",
-              "defaultValue": {},
-              "metadata": {
-                "description": "Tags to apply to the app resources."
-              }
-            }
-          },
-          "resources": [
-            {
-              "type": "Microsoft.Web/serverfarms",
-              "apiVersion": "2023-12-01",
-              "name": "[parameters('appServicePlanName')]",
-              "location": "[parameters('location')]",
-              "kind": "linux",
-              "sku": {
-                "name": "B1",
-                "tier": "Basic"
-              },
-              "properties": {
-                "reserved": true
-              },
-              "tags": "[parameters('tags')]"
-            },
-            {
-              "type": "Microsoft.Web/sites",
-              "apiVersion": "2023-12-01",
-              "name": "[parameters('webAppName')]",
-              "location": "[parameters('location')]",
-              "kind": "app,linux",
-              "identity": {
-                "type": "SystemAssigned"
-              },
-              "tags": "[parameters('tags')]",
-              "properties": {
-                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('appServicePlanName'))]",
-                "httpsOnly": true,
-                "siteConfig": {
-                  "linuxFxVersion": "NODE|20-lts",
-                  "alwaysOn": true,
-                  "appSettings": [
-                    {
-                      "name": "APPLICATIONINSIGHTS_CONNECTION_STRING",
-                      "value": "[parameters('appInsightsConnectionString')]"
-                    },
-                    {
-                      "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
-                      "value": "[parameters('appInsightsInstrumentationKey')]"
-                    },
-                    {
-                      "name": "WEBSITE_RUN_FROM_PACKAGE",
-                      "value": "1"
-                    }
-                  ]
-                }
-              },
-              "dependsOn": [
-                "[resourceId('Microsoft.Web/serverfarms', parameters('appServicePlanName'))]"
-              ]
-            }
-          ],
-          "outputs": {
-            "webAppName": {
-              "type": "string",
-              "value": "[parameters('webAppName')]"
-            },
-            "webAppUrl": {
-              "type": "string",
-              "value": "[format('https://{0}', reference(resourceId('Microsoft.Web/sites', parameters('webAppName')), '2023-12-01').defaultHostName)]"
-            },
-            "principalId": {
-              "type": "string",
-              "value": "[reference(resourceId('Microsoft.Web/sites', parameters('webAppName')), '2023-12-01', 'full').identity.principalId]"
-            }
-          }
-        }
-      },
-      "dependsOn": [
-        "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('resourceGroupName')), 'Microsoft.Resources/deployments', 'monitoringDeployment')]",
-        "[subscriptionResourceId('Microsoft.Resources/resourceGroups', variables('resourceGroupName'))]"
-      ]
-    },
-    {
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2025-04-01",
       "name": "keyVaultSecretsUserAssignment",
       "resourceGroup": "[variables('resourceGroupName')]",
       "properties": {
@@ -631,14 +476,6 @@
     "storageStaticWebsiteUrl": {
       "type": "string",
       "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('resourceGroupName')), 'Microsoft.Resources/deployments', 'storageDeployment'), '2025-04-01').outputs.staticWebsiteUrl.value]"
-    },
-    "webAppName": {
-      "type": "string",
-      "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('resourceGroupName')), 'Microsoft.Resources/deployments', 'appServiceDeployment'), '2025-04-01').outputs.webAppName.value]"
-    },
-    "webAppUrl": {
-      "type": "string",
-      "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('resourceGroupName')), 'Microsoft.Resources/deployments', 'appServiceDeployment'), '2025-04-01').outputs.webAppUrl.value]"
     },
     "keyVaultName": {
       "type": "string",

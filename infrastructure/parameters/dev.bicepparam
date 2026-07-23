@@ -1,10 +1,10 @@
 using '../main.bicep'
 
 param environmentName = 'dev'
-param applicationName = 'claims'
+param applicationName = 'sa-graduate'
 param location = 'eastus'
 param tags = {
-  workload: 'claims-solution'
+  workload: 'graduate-solution'
   managedBy: 'bicep'
   environment: 'dev'
 }
