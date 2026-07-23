@@ -31,7 +31,7 @@ jobs:
         id: deploy
         with:
           scope: subscription
-          region: eastus
+          region: australiaeast
           template: ./infrastructure/main.bicep
           parameters: ./infrastructure/parameters/dev.bicepparam
 

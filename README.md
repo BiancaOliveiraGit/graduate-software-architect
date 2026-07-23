@@ -12,7 +12,7 @@ Use the Azure CLI with a parameter file, for example:
 
 ```bash
 az deployment sub create \
-  --location eastus \
+  --location australiaeast \
   --template-file infrastructure/main.bicep \
   --parameters infrastructure/parameters/dev.bicepparam
 ```
