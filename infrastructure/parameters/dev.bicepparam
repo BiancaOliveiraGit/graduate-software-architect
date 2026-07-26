@@ -2,7 +2,7 @@ using '../main.bicep'
 
 param environmentName = 'dev'
 param applicationName = 'sa-graduate'
-param location = 'eastus'
+param location = 'australiaeast'
 param tags = {
   workload: 'graduate-solution'
   managedBy: 'bicep'

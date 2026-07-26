@@ -22,23 +22,40 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Azure login
-        uses: azure/login@v2
+        uses: azure/login@v3
         with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Deploy Bicep infrastructure
         uses: azure/arm-deploy@v2
         id: deploy
         with:
           scope: subscription
-          region: eastus
+          region: australiaeast
           template: ./infrastructure/main.bicep
           parameters: ./infrastructure/parameters/dev.bicepparam
+          deploymentName: infra-deploy-${{ github.run_id }}
+
+      - name: Retrieve ARM deployment outputs
+        if: success()
+        env:
+          DEPLOYMENT_NAME: infra-deploy-${{ github.run_id }}
+        run: |
+          # Ensure az is available (azure/login provides it) and we have jq
+          az deployment sub show --name "$DEPLOYMENT_NAME" --query properties.outputs -o json > infra-outputs.json
+          echo "infra outputs:"
+          cat infra-outputs.json
+          STORAGE_ACCOUNT_NAME=$(jq -r '.storageAccountName.value' infra-outputs.json)
+          RESOURCE_GROUP_NAME=$(jq -r '.resourceGroupName.value' infra-outputs.json)
+          if [ -z "$STORAGE_ACCOUNT_NAME" ] || [ "$STORAGE_ACCOUNT_NAME" = "null" ]; then
+            echo "ERROR: storageAccountName not found in deployment outputs" >&2
+            exit 1
+          fi
+          echo "STORAGE_ACCOUNT_NAME=$STORAGE_ACCOUNT_NAME" >> $GITHUB_ENV
+          echo "RESOURCE_GROUP_NAME=$RESOURCE_GROUP_NAME" >> $GITHUB_ENV
 
       - name: Upload website content to static storage
         if: success()
         run: |
           chmod +x ./infrastructure/scripts/deploy-site.sh
-          ./infrastructure/scripts/deploy-site.sh "${{ steps.deploy.outputs.outputs.storageAccountName.value }}" "${{ steps.deploy.outputs.outputs.resourceGroupName.value }}" .
+          ./infrastructure/scripts/deploy-site.sh "$STORAGE_ACCOUNT_NAME" "$RESOURCE_GROUP_NAME" .

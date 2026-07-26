@@ -22,7 +22,7 @@ param tags object = {
 }
 
 var normalizedAppName = toLower(replace(applicationName, '-', ''))
-var deploymentSuffix = toLower(uniqueString(subscription().subscriptionId, applicationName, environmentName))
+var deploymentSuffix = 'bto'
 var resourceGroupName = 'rg-${normalizedAppName}-${environmentName}-${deploymentSuffix}'
 var storageAccountName = take('st${normalizedAppName}${environmentName}${deploymentSuffix}', 24)
 var appInsightsName = take('appi-${normalizedAppName}-${environmentName}-${deploymentSuffix}', 260)

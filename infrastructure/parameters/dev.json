@@ -6,14 +6,14 @@
       "value": "dev"
     },
     "applicationName": {
-      "value": "claims"
+      "value": "sa-graduate"
     },
     "location": {
-      "value": "eastus"
+      "value": "australiaeast"
     },
     "tags": {
       "value": {
-        "workload": "claims-solution",
+        "workload": "graduate-solution",
         "managedBy": "bicep",
         "environment": "dev"
       }
