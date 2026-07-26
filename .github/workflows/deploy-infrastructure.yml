@@ -39,4 +39,6 @@ jobs:
         if: success()
         run: |
           chmod +x ./infrastructure/scripts/deploy-site.sh
-          ./infrastructure/scripts/deploy-site.sh "${{ steps.deploy.outputs.outputs.storageAccountName.value }}" "${{ steps.deploy.outputs.outputs.resourceGroupName.value }}" .
+          STORAGE_ACCOUNT_NAME=$(echo '${{ steps.deploy.outputs.deploymentOutputs }}' | jq -r '.storageAccountName.value')
+          RESOURCE_GROUP_NAME=$(echo '${{ steps.deploy.outputs.deploymentOutputs }}' | jq -r '.resourceGroupName.value')
+          ./infrastructure/scripts/deploy-site.sh "$STORAGE_ACCOUNT_NAME" "$RESOURCE_GROUP_NAME" .
