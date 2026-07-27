@@ -34,3 +34,6 @@ On Windows PowerShell, use:
 - [infrastructure/parameters/dev.bicepparam](infrastructure/parameters/dev.bicepparam)
 - [infrastructure/parameters/test.bicepparam](infrastructure/parameters/test.bicepparam)
 - [infrastructure/parameters/prod.bicepparam](infrastructure/parameters/prod.bicepparam)
+
+### Static Website URL
+https://stsagraduatedevbto.z8.web.core.windows.net/
