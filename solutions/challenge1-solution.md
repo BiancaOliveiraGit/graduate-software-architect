@@ -100,7 +100,7 @@ A mid-sized insurance company wants to modernize its claims processing to be upl
 | Flexible Serverless Functions | Scales automatically | Cold start latency | Low | Recommended |
 | App Service Plan | Predictable cost | Higher cost | Medium | Not preferred |
 | Blob Storage | Redundancy policies available | Limited query capabilities | Low | Recommended |
-| Service Bus with Topics | Message durability & integrationdecoupling | Higher operational overhead | Medium | Recommended |
+| Service Bus with Topics | Message durability & integration decoupling | Higher operational overhead | Medium | Recommended |
 
 ## Availability and Disaster Recovery
 99.95% required availability equates to 4.38 hours of downtime per year. The proposed architecture is designed to meet this requirement through the use of Azure Front Door, Azure Functions deployed in multiple regions, and Service Bus with geo-replication.
