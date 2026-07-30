@@ -1,0 +1,24 @@
+### LEARNINGS
+
+MON 27/7
+# deployment to azure
+the deployment yml file didn't know what the storage account name was when trying to update the website to storage account. 
+Used AI to can deployment file, I don't think it was the best approach and should revisit later.
+
+the GitHub registered app needed to have blob contributor role as well as contributor for it to enable data upload the blob.
+
+found the website url from the az-portal under the 'endpoints' pane
+
+- GitHub workflows
+having a workflow subfolder under the .GitHub folder will automatically create a deployment workflow `deploy-infrastructure.yml`
+This file has a setting to run automatically when merge made into main
+----------------------
+TUE 28/7
+the review was ok, however not probing enough. At one question was too broad so I asked the AI mentor to ask more pointed questions. Over all I give it 6/10. 
+This was using the in built GitHub chat where it is auto selecting agent because on free plan
+----------------------
+FRI 31/7
+uploaded design solution files to Chatgpt, I am on paid subscription. The chat thread has context of the design challenge that it gave me.
+The review was great however wasn't an interactive experience, I will try that after I submit for another review.
+I have so much work to do on the revision of my design. This review really identified areas that I am weak in. 
+----------------------
